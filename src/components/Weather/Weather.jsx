@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
-import injectSheet from 'react-jss'
-import Header from '../Header/Header'
-import HomePage from '../HomePage/HomePage'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withStyles } from '@material-ui/core/styles'
+import HomePage from '../HomePage/HomePage'
+import Header from '../Header/Header'
+import bg from '../../assets/bg.jpeg'
 
 const styles = {
   weatherContainer: {
     display: 'flex',
     flexDirection: 'column',
     height: '100vh',
+    background: `linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3)), url(${bg})`,
+    backgroundSize: 'cover',
   },
 }
 
@@ -39,10 +41,10 @@ class Weather extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    currentPage: state.currentPage
-  })
-  
-  export default compose(
-    connect(mapStateToProps),
-    withStyles(styles),
-  )(Weather)
+  currentPage: state.currentPage,
+})
+
+export default compose(
+  connect(mapStateToProps),
+  withStyles(styles),
+)(Weather)

@@ -1,48 +1,20 @@
 import Immutable from 'seamless-immutable'
 import { handleActions } from 'redux-actions'
 import types from '../actions/types'
+import { DEFAULT_CITY } from '../consts'
 
 const initialState = Immutable({
-    currentPage: 'home',
-    cityName: '',
-    cityDetails: {},
-    chosenCityDetails: {
-        name: 'Tel aviv',
-        degree: 18,
-        text: 'Rainy',
-        dailyForecasts: [
-            {
-                date: new Date(),
-                degree: 10,
-                text: 'Rainy'
-            },
-            {
-                date: new Date(),
-                degree: 10,
-                text: 'Sunny'
-            },
-            {
-                date: new Date(),
-                degree: 10,
-                text: 'Sunny'
-            },
-            {
-                date: new Date(),
-                degree: 10,
-                text: 'Sunny'
-            },
-            {
-                date: new Date(),
-                degree: 10,
-                text: 'Sunny'
-            }
-        ]
-    }
+  currentPage: 'home',
+  city: DEFAULT_CITY || {},
+  cityDetails: {
+    currWeatherInfo: {},
+    forecast: [],
+  },
 })
 
 export default handleActions({
   [types.setCurrentPage]: (state, { value }) => state.setIn(['currentPage'], value),
-  [types.setCityName]: (state, { value }) => state.setIn(['cityName'], value),
-  [types.setCityDetails]: (state, { value }) => state.setIn(['cityDetails'], value),
+  [types.setCity]: (state, { value }) => state.setIn(['city'], value),
+  [types.setCityDetails]: (state, { key, value }) => state.setIn(['cityDetails', key], value),
   [types.setChosenCityDetails]: (state, { value }) => state.setIn(['chosenCityDetails'], value),
 }, initialState)

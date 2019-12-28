@@ -1,28 +1,29 @@
 import types from './types'
 
-const setCurrentPage = value => ({
+const setCurrentPage = (value) => ({
   type: types.setCurrentPage,
   value,
 })
 
-const setChosenCityDetails = value => ({
+const setChosenCityDetails = (value) => ({
   type: types.setChosenCityDetails,
   value,
 })
 
-const setCityName = value => ({
-  type: types.setCityName,
+const setCity = (value) => ({
+  type: types.setCity,
   value,
 })
 
-const setCityDetails = value => ({
+const setCityDetails = (key, value) => ({
   type: types.setCityDetails,
+  key,
   value,
 })
 
 export {
   setCurrentPage,
   setChosenCityDetails,
-  setCityName,
+  setCity,
   setCityDetails,
 }

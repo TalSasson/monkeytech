@@ -10,33 +10,12 @@ import { setCurrentPage } from '../../actions'
 
 const TITLE = 'Herolo weather task'
 
-const styles = theme => ({
-  headerContainer: {
-    height: 60,
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: `0 ${theme.spacing.unit * 4}`,
-    boxShadow: '0 2px 10px -3px rgba(0,0,0,0.52)',
-  },
+const styles = () => ({
   title: {
     flexGrow: 1,
   },
   btnsWrapper: {
     display: 'flex',
-  },
-  headerBtn: {
-    border: '1px solid white',
-    cursor: 'pointer',
-    margin: '0 5px',
-    padding: theme.spacing.unit,
-    width: 75,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: '5px',
-    boxShadow: '0 1px 10px 1px rgba(236, 227, 227, 1)',
   },
 })
 
@@ -69,7 +48,7 @@ function Header(props) {
 }
 
 const mapStateToProps = (state) => ({
-  currentPage: state.currentPage
+  currentPage: state.currentPage,
 })
 
 export default compose(

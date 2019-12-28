@@ -2,57 +2,68 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import Paper from '@material-ui/core/Paper'
-import Moment from 'moment'
-import Grid from '@material-ui/core/Grid'
+import { imageUrl } from '../../consts'
 
-const styles = theme => ({
+const styles = (theme) => ({
   cardWrapper: {
-    margin: 20,
     display: 'flex',
-    padding: 14,
     flexWrap: 'wrap',
     boxSizing: 'border-box',
-    justifyContent: 'space-between',
-    background: theme.palette.primary.main,
+    flexDirection: 'column',
+    alignItems: 'center',
+    color: '#9b9b9b',
+    [theme.breakpoints.down('sm')]: {
+      margin: '0 5px',
+    },
+    [theme.breakpoints.between('sm', 'md')]: {
+      margin: '0 10px',
+      fontSize: 12,
+    },
+    [theme.breakpoints.up('md')]: {
+      margin: '0 30px',
+      fontSize: 20,
+    },
   },
-  degree: {
-    fontSize: 40,
-    color: theme.palette.secondary.main,
-    marginRight: 20,
-    letterSpacing: -2,
+  dayName: {
+    color: 'black',
   },
-  details: {
-    flexGrow: 1,
-  },
-  date: {
-    fontSize: 15,
-    fontWeight: 'bold',
-    textAlign: 'right',
-  },
-  text: {
-    fontSize: 13,
+  icon: {
+    [theme.breakpoints.down('sm')]: {
+      width: 60,
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: 100,
+    },
+    margin: '12px 0',
   },
 })
 
 function WeatherDetailsCard(props) {
   const { classes, dayDetails } = props
-  const { degree, text, date } = dayDetails
+  const { temp, dayTemp, date } = dayDetails
+  const { min: minTemp, max: maxTemp } = temp
+
   return (
-    <Grid item xs={6} lg={3}>
-      <Paper elevation={3} className={classes.cardWrapper}>
-        <div className={classes.degree}>{degree}&#176;</div>
-        <div className={classes.date}>
-          <div>{Moment(date).format('LL')}</div>
-          <div className={classes.text}>{text}</div>
-        </div> 
-      </Paper>
-    </Grid>
+    <div className={classes.cardWrapper}>
+      <div className={classes.dayName}>{new Date(date).toString().split(' ')[0]}</div>
+      <img
+        src={`${imageUrl}/${dayTemp.icon.toString().padStart(2, '0')}-s.png`}
+        alt="daily weather icon"
+        className={classes.icon}
+      />
+      <div>
+        {Math.round(minTemp)}
+        &#176; /
+        {' '}
+        {Math.round(maxTemp)}
+        &#176;
+      </div>
+    </div>
   )
 }
 
 const mapStateToProps = (state) => ({
-  chosenCityDetails: state.chosenCityDetails
+  chosenCityDetails: state.chosenCityDetails,
 })
 
 export default compose(

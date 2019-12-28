@@ -1,61 +1,112 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import Paper from '@material-ui/core/Paper'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import WeatherDetailsCard from '../WeatherDetailsCard/WeatherDetailsCard'
-import Grid from '@material-ui/core/Grid'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import CurrentWeather from '../CurrentWeather/CurrentWeather'
 import AutoComplete from '../AutoComplete/AutoComplete'
-import { fetchSelectedOptionDetails } from '../../lib/api'
+import { setCityDetails } from '../../actions'
+import { fetchCurrentCityWeather, fetchForecastDetails } from '../../lib/api'
+import Forecast from '../Forecast/Forecast'
 
-const styles = theme => ({
+const styles = (theme) => ({
   homePageContainer: {
     display: 'flex',
     flexDirection: 'column',
     height: '100%',
     overflow: 'auto',
+    position: 'relative',
   },
   weatherDetailsContainer: {
     display: 'flex',
-    margin: '0 50px 20px 50px',
     flexDirection: 'column',
     justifyContent: 'space-evenly',
-    padding: '60px 20px',
+    flexGrow: 1,
   },
-  cards: {
+  loader: {
+    alignItems: 'center',
+  },
+  errorWrapper: {
     display: 'flex',
-    flexWrap: 'wrap',
     justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+  tryAgainBtn: {
+    marginTop: 10,
+    border: `2px solid ${theme.palette.primary.main}`,
+    padding: '5px 15px',
+    borderRadius: 5,
+    cursor: 'pointer',
   },
 })
 
 function HomePage(props) {
-  const { classes, chosenCityDetails } = props
-  const { dailyForecasts } = chosenCityDetails
+  const { classes, city: { key = '' } } = props
+  const [isLoader, isShowLoader] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
+
+  function getCityWeather() {
+    if (!key) return
+    (async () => {
+      try {
+        isShowLoader(true)
+        await fetchCurrentCityWeather(key)
+        await fetchForecastDetails(key)
+        isShowLoader(false)
+        setErrorMsg('')
+      }
+      catch (e) {
+        isShowLoader(false)
+        props.setCityDetails({})
+        setErrorMsg('Sorry, unable to fetch data')
+      }
+    })()
+  }
+
+  useEffect(getCityWeather, [key])
+
+  function renderBodyWeather() {
+
+    if (isLoader) {
+        return <CircularProgress className={classes.progress} />
+    }
+    if (errorMsg) {
+        return (
+            <div className={classes.errorWrapper}>
+              <div>{errorMsg}</div>
+              <div
+                onClick={getCityWeather}
+                className={classes.tryAgainBtn}
+                tabIndex={0}
+                role="button"
+              >
+                Try again
+              </div>
+            </div>
+          )
+    }
+    return [
+        <CurrentWeather key="currentWeather"/>,
+        <Forecast key="forecast" />
+    ]
+  }
 
   return (
     <div className={classes.homePageContainer}>
-      <AutoComplete onChange={fetchSelectedOptionDetails} />
-      <Paper className={classes.weatherDetailsContainer} elevation={3}>
-        <CurrentWeather />
-        <Grid container>
-          <div className={classes.cards}>
-            {dailyForecasts.map(item => (
-              <WeatherDetailsCard dayDetails={item} />
-            ))}
-          </div>
-        </Grid>
-      </Paper>
+      <AutoComplete />
+      <div className={`${classes.weatherDetailsContainer} ${isLoader ? classes.loader : ''}`} elevation={3}>
+        {renderBodyWeather()}
+      </div>
     </div>
   )
 }
 
 const mapStateToProps = (state) => ({
-    chosenCityDetails: state.chosenCityDetails
-  })
-  
-  export default compose(
-    connect(mapStateToProps),
-    withStyles(styles),
-  )(HomePage)
+  city: state.city,
+})
+
+export default compose(
+  connect(mapStateToProps, { setCityDetails }),
+  withStyles(styles),
+)(HomePage)

@@ -14,14 +14,12 @@ const style = {
   },
 }
 
-const App = ({ classes }) => {
-  return (
-    <MuiThemeProvider theme={theme}>
-      <div className={classes.appContainer}>
-        <Weather />
-      </div>
-    </MuiThemeProvider> 
-  )
-}
+const App = ({ classes }) => (
+  <MuiThemeProvider theme={theme}>
+    <div className={classes.appContainer}>
+      <Weather />
+    </div>
+  </MuiThemeProvider>
+)
 
 export default injectSheet(style)(App)
