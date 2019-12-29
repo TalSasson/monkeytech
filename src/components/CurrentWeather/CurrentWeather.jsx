@@ -3,11 +3,16 @@ import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 
-const styles = () => ({
+const styles = (theme) => ({
   currWeatherWrapper: {
     display: 'flex',
+    flexDirection: 'column',
     userSelect: 'none',
     flexGrow: 1,
+    color: 'white',
+    alignItems: 'end',
+    margin: '0 50px',
+    fontWeight: 'lighter',
   },
   imgWrapper: {
     border: '1px solid',
@@ -21,19 +26,45 @@ const styles = () => ({
   img: {
     width: '100%',
   },
+  description: {
+    fontSize: 30,
+  },
   cityName: {
-    fontSize: 18,
+    fontSize: 50,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 37,
+    },
+    [theme.breakpoints.between('sm', 'md')]: {
+      fontSize: 50,
+    },
+  },
+  tempIconWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    fontWeight: 'lighter',
+    marginTop: 20,
+  },
+  degree: {
+    fontSize: 85,
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 65,
+    },
+    [theme.breakpoints.between('sm', 'md')]: {
+      fontSize: 85,
+    },
   },
 })
 
 function CurrentWeather(props) {
   const { classes, city: { label: cityName }, cityDetails } = props
-  const { currWeatherInfo } = cityDetails || {}
+  const { currWeatherInfo, country } = cityDetails || {}
   const { temp, description, img } = currWeatherInfo || {}
 
   return (
     <div className={classes.currWeatherWrapper}>
-      <div className={classes.imgWrapper}>
+      <div className={classes.cityName}>{`${cityName}, ${country}`}</div>
+      <div className={classes.description}>{description}</div>
+      <div className={classes.tempIconWrapper}>
         {img
         && (
         <img
@@ -42,14 +73,10 @@ function CurrentWeather(props) {
           className={classes.img}
         />
         )}
-      </div>
-      <div className={classes.details}>
-        <div className={classes.cityName}>{cityName}</div>
         <div className={classes.degree}>
-          {temp}
-&#176;
+          {Math.round(temp)}
+          &#176;
         </div>
-        <div>{description}</div>
       </div>
     </div>
   )

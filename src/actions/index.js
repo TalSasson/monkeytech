@@ -5,13 +5,18 @@ const setCurrentPage = (value) => ({
   value,
 })
 
-const setChosenCityDetails = (value) => ({
-  type: types.setChosenCityDetails,
+const setCity = (value) => ({
+  type: types.setCity,
   value,
 })
 
-const setCity = (value) => ({
-  type: types.setCity,
+const setFavoriteCities = (value) => ({
+  type: types.setFavoriteCities,
+  value,
+})
+
+const removeFavoriteCity = (value) => ({
+  type: types.removeFavoriteCity,
   value,
 })
 
@@ -23,7 +28,8 @@ const setCityDetails = (key, value) => ({
 
 export {
   setCurrentPage,
-  setChosenCityDetails,
   setCity,
   setCityDetails,
+  setFavoriteCities,
+  removeFavoriteCity,
 }

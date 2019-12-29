@@ -1,8 +1,9 @@
 const types = {
   setCurrentPage: 'SET_CURRENT_PAGE',
-  setChosenCityDetails: 'SET_CHOSEN_CITY_DETAILS',
   setCity: 'SET_CITY',
   setCityDetails: 'SET_CITY_DETAILS',
+  setFavoriteCities: 'SET_FAVORITE_CITIES',
+  removeFavoriteCity: 'REMOVE_FAVORITE_CITY',
 }
 
 export default types

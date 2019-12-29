@@ -3,9 +3,10 @@ import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import CurrentWeather from '../CurrentWeather/CurrentWeather'
 import AutoComplete from '../AutoComplete/AutoComplete'
-import { setCityDetails } from '../../actions'
+import { setCityDetails, setFavoriteCities } from '../../actions'
 import { fetchCurrentCityWeather, fetchForecastDetails } from '../../lib/api'
 import Forecast from '../Forecast/Forecast'
 
@@ -39,10 +40,28 @@ const styles = (theme) => ({
     borderRadius: 5,
     cursor: 'pointer',
   },
+  heartImg: {
+    position: 'absolute',
+    fill: 'white',
+    right: 0,
+    margin: 50,
+    width: 35,
+    height: 35,
+    cursor: 'pointer',
+    '&:hover': {
+      fill: 'red',
+    },
+    [theme.breakpoints.down('sm')]: {
+      margin: '42px 20px',
+    },
+    [theme.breakpoints.between('sm', 'md')]: {
+      margin: 50,
+    },
+  },
 })
 
 function HomePage(props) {
-  const { classes, city: { key = '' } } = props
+  const { classes, city: { key = '' }, favoriteCities } = props
   const [isLoader, isShowLoader] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
 
@@ -66,34 +85,45 @@ function HomePage(props) {
 
   useEffect(getCityWeather, [key])
 
-  function renderBodyWeather() {
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favoriteCities))
+  }, [favoriteCities])
 
+  function renderBodyWeather() {
     if (isLoader) {
-        return <CircularProgress className={classes.progress} />
+      return <CircularProgress className={classes.progress} />
     }
     if (errorMsg) {
-        return (
-            <div className={classes.errorWrapper}>
-              <div>{errorMsg}</div>
-              <div
-                onClick={getCityWeather}
-                className={classes.tryAgainBtn}
-                tabIndex={0}
-                role="button"
-              >
-                Try again
-              </div>
-            </div>
-          )
+      return (
+        <div className={classes.errorWrapper}>
+          <div>{errorMsg}</div>
+          <div
+            onClick={getCityWeather}
+            className={classes.tryAgainBtn}
+            tabIndex={0}
+            role="button"
+          >
+            Try again
+          </div>
+        </div>
+      )
     }
     return [
-        <CurrentWeather key="currentWeather"/>,
-        <Forecast key="forecast" />
+      <CurrentWeather key="currentWeather" />,
+      <Forecast key="forecast" />,
     ]
   }
 
   return (
     <div className={classes.homePageContainer}>
+      <FavoriteBorderIcon
+        className={classes.heartImg}
+        onClick={() => {
+          if (props.city.key && !favoriteCities.find((city) => city.key === props.city.key)) {
+            props.setFavoriteCities(props.city)
+          }
+        }}
+      />
       <AutoComplete />
       <div className={`${classes.weatherDetailsContainer} ${isLoader ? classes.loader : ''}`} elevation={3}>
         {renderBodyWeather()}
@@ -104,9 +134,10 @@ function HomePage(props) {
 
 const mapStateToProps = (state) => ({
   city: state.city,
+  favoriteCities: state.favoriteCities,
 })
 
 export default compose(
-  connect(mapStateToProps, { setCityDetails }),
+  connect(mapStateToProps, { setCityDetails, setFavoriteCities }),
   withStyles(styles),
 )(HomePage)

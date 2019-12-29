@@ -43,7 +43,11 @@ function HomePage(props) {
 
   return (
     <div className={classes.container}>
-      <svg className={`${classes.bgWave} ${classes.bgWaveBehind}`} viewBox="0 0 500 165" preserveAspectRatio="xMaxYMax slice">
+      <svg
+        className={`${classes.bgWave} ${classes.bgWaveBehind}`}
+        viewBox="0 0 500 165"
+        preserveAspectRatio="xMaxYMax slice"
+      >
         <path className="back" d="M0,120 C250,250 300,0 560,180 L500,00 L0,0 Z" />
       </svg>
       <svg className={classes.bgWave} viewBox="0 0 500 165" preserveAspectRatio="xMaxYMax slice">
