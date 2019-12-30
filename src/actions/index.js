@@ -1,24 +1,30 @@
 import types from './types'
-
-const setCurrentPage = (value) => ({
-  type: types.setCurrentPage,
-  value,
-})
+import store from '../store'
 
 const setCity = (value) => ({
   type: types.setCity,
   value,
 })
 
-const setFavoriteCities = (value) => ({
-  type: types.setFavoriteCities,
-  value,
-})
+const setFavoriteCities = (value) => {
+  const { favoriteCities } = store.getState()
+  const newFavList = [...favoriteCities, value]
+  localStorage.setItem('favorites', JSON.stringify(newFavList))
+  return ({
+    type: types.updateFavorites,
+    favorites: newFavList,
+  })
+}
 
-const removeFavoriteCity = (value) => ({
-  type: types.removeFavoriteCity,
-  value,
-})
+const removeFavoriteCity = (value) => {
+  const { favoriteCities } = store.getState()
+  const newFavList = favoriteCities.filter((city) => city.key !== value)
+  localStorage.setItem('favorites', JSON.stringify(newFavList))
+  return ({
+    type: types.updateFavorites,
+    favorites: newFavList,
+  })
+}
 
 const setCityDetails = (key, value) => ({
   type: types.setCityDetails,
@@ -26,10 +32,15 @@ const setCityDetails = (key, value) => ({
   value,
 })
 
+const resetCityDetails = (value) => ({
+  type: types.resetCityDetails,
+  value,
+})
+
 export {
-  setCurrentPage,
   setCity,
   setCityDetails,
   setFavoriteCities,
   removeFavoriteCity,
+  resetCityDetails,
 }

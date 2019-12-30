@@ -1,6 +1,13 @@
 import React from 'react'
+import {
+  Switch,
+  Route,
+} from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
+import { ROUTES } from '../../consts'
 import Header from '../Header/Header'
+import HomePage from '../HomePage/HomePage'
+import Favorites from '../Favorites/Favorites'
 import bg from '../../assets/bg.jpeg'
 
 const styles = {
@@ -15,10 +22,16 @@ const styles = {
 
 function Weather(props) {
   const { classes } = props
-
   return (
     <div className={classes.weatherContainer}>
       <Header />
+      <Switch>
+        <Route exect path={ROUTES.home} component={HomePage} />
+        <Route exect path={ROUTES.favorites} component={Favorites} />
+        <Route>
+          <div>No Match</div>
+        </Route>
+      </Switch>
     </div>
   )
 }

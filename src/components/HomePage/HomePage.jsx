@@ -7,8 +7,9 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import CurrentWeather from '../CurrentWeather/CurrentWeather'
 import AutoComplete from '../AutoComplete/AutoComplete'
 import { setCityDetails, setFavoriteCities } from '../../actions'
-import { fetchCurrentCityWeather, fetchForecastDetails } from '../../lib/api'
+import { updateCurrentCityWeather, updateForecast, fetchAutoCompleteOptions } from '../../lib/api'
 import Forecast from '../Forecast/Forecast'
+import { ERROR_MSG } from '../../consts'
 
 const styles = (theme) => ({
   homePageContainer: {
@@ -61,42 +62,40 @@ const styles = (theme) => ({
 })
 
 function HomePage(props) {
-  const { classes, city: { key = '' }, favoriteCities } = props
+  const { classes, city: { key = '', label }, favoriteCities } = props
   const [isLoader, isShowLoader] = useState(false)
-  const [errorMsg, setErrorMsg] = useState('')
+  const [isError, setIsError] = useState('')
 
   function getCityWeather() {
+    console.log('in getCityWeather', key)
     if (!key) return
     (async () => {
       try {
         isShowLoader(true)
-        await fetchCurrentCityWeather(key)
-        await fetchForecastDetails(key)
+        await fetchAutoCompleteOptions(label)
+        await updateCurrentCityWeather(key)
+        await updateForecast(key)
         isShowLoader(false)
-        setErrorMsg('')
+        setIsError(false)
       }
       catch (e) {
         isShowLoader(false)
         props.setCityDetails({})
-        setErrorMsg('Sorry, unable to fetch data')
+        setIsError(true)
       }
     })()
   }
 
   useEffect(getCityWeather, [key])
 
-  useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favoriteCities))
-  }, [favoriteCities])
-
   function renderBodyWeather() {
     if (isLoader) {
       return <CircularProgress className={classes.progress} />
     }
-    if (errorMsg) {
+    if (isError) {
       return (
         <div className={classes.errorWrapper}>
-          <div>{errorMsg}</div>
+          <div>{ERROR_MSG}</div>
           <div
             onClick={getCityWeather}
             className={classes.tryAgainBtn}

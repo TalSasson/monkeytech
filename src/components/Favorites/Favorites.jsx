@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-} from 'react-router-dom'
+import React, { useState } from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import DeleteIcon from '@material-ui/icons/Delete'
+import DeleteIcon from '@material-ui/icons/DeleteOutline'
 import Paper from '@material-ui/core/Paper'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
-import { setCity, setCurrentPage, removeFavoriteCity } from '../../actions'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { setCity, removeFavoriteCity, resetCityDetails } from '../../actions'
+import { ROUTES, ERROR_MSG } from '../../consts'
+import { fetchCityWeather, fetchForecastDetails } from '../../lib/api'
 
 const styles = (theme) => ({
   favoritesWrapper: {
@@ -18,24 +15,26 @@ const styles = (theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 50,
+    padding: 32,
   },
   city: {
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
-    padding: '0 20px',
+    padding: '10px 20px',
     boxSizing: 'border-box',
     alignItems: 'center',
     cursor: 'pointer',
-    background: 'white',
+    background: 'rgba(0,0,0,0.4)',
     borderRadius: 10,
     boxShadow: '0 6px 4px rgba(0,0,0,0.5)',
+    border: '1px solid white',
+    color: 'white',
   },
   cityName: {
     fontSize: 30,
     [theme.breakpoints.down('sm')]: {
-      fontSize: 20,
+      fontSize: 17,
     },
   },
   detailsWrapper: {
@@ -44,7 +43,7 @@ const styles = (theme) => ({
   img: {
     margin: 20,
     [theme.breakpoints.down('sm')]: {
-      margin: 10,
+      margin: '10px 0',
     },
   },
   tempDesWrapper: {
@@ -52,8 +51,10 @@ const styles = (theme) => ({
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     alignItems: 'center',
+    width: 90,
     [theme.breakpoints.down('sm')]: {
       justifyContent: 'center',
+      width: 70,
     },
   },
   description: {
@@ -74,7 +75,7 @@ const styles = (theme) => ({
     display: 'flex',
     marginTop: 4,
     marginLeft: 15,
-    background: 'red',
+    background: 'transparent',
     height: '100%',
     cursor: 'pointer',
     '&:hover': {
@@ -88,55 +89,111 @@ const styles = (theme) => ({
 })
 
 function Favorites(props) {
-  const { classes, favoriteCities, cityDetails: { currWeatherInfo } } = props
-  const { temp, description, img } = currWeatherInfo || {}
+  const { classes, favoriteCities = [] } = props
+  const [isLoader, isShowLoader] = useState(true)
+  const [isError, setIsError] = useState(false)
+  const [favCitiesInfo, setFavCitiesInfo] = useState({})
 
-  return (
-    <div className={classes.favoritesWrapper}>
-      {favoriteCities.map((city) => (
-        <div key={city.key} className={classes.favCityContainer}>
-          <div
-            className={classes.city}
-            role="button"
-            tabIndex={0}
-            onClick={() => {
-              props.setCityDetails('country', '')
-              props.setCityDetails('currWeatherInfo', {})
-              props.setCityDetails('forecast', [])
-              props.setCity({ label: city.label, key: city.key })
-              props.setCurrentPage('home')
-            }}
-          >
-            <div className={classes.cityName}>{city.label}</div>
-            <div className={classes.detailsWrapper}>
-              {img
+  function handleCityClick(city) {
+    props.setCity(city)
+    props.history.push(ROUTES.home)
+  }
+
+  function getCityWeather() {
+    (async () => {
+      try {
+        isShowLoader(true)
+        const cities = await Promise.all(favoriteCities.map((city) => fetchCityWeather(city.key)))
+        const citiesInfo = cities.reduce((acc, info, i) => ({
+          ...acc,
+          [favoriteCities[i].key]: info,
+        }), {})
+        // const forecast = await Promise.all(favoriteCities.map((city) => fetchForecastDetails(city.key)))
+        setFavCitiesInfo(citiesInfo)
+        isShowLoader(false)
+        setIsError(false)
+      }
+      catch (e) {
+        isShowLoader(false)
+        setIsError(true)
+      }
+    })()
+  }
+
+  useState(getCityWeather, [favoriteCities])
+
+  function renderRemoveIcon(key) {
+    return (
+      <Paper
+        elevation={3}
+        className={classes.removeIcon}
+        onClick={() => {
+          props.removeFavoriteCity(key)
+        }}
+      >
+        <DeleteIcon />
+      </Paper>
+    )
+  }
+
+  function renderCities() {
+    return favoriteCities.map((city) => (
+      <div key={city.key} className={classes.favCityContainer}>
+        <div
+          className={classes.city}
+          role="button"
+          tabIndex={0}
+          onClick={() => handleCityClick(city)}
+        >
+          <div className={classes.cityName}>{city.label}</div>
+          <div className={classes.detailsWrapper}>
+            {favCitiesInfo[city.key].img
             && (
             <img
-              src={img}
+              src={favCitiesInfo[city.key].img}
               alt="weather icon"
               className={classes.img}
             />
             )}
-              <div className={classes.tempDesWrapper}>
-                <div className={classes.temp}>
-                  {Math.round(temp)}
+            <div className={classes.tempDesWrapper}>
+              <div className={classes.temp}>
+                {Math.round(favCitiesInfo[city.key].temp)}
                   &#176;
-                </div>
-                <div className={classes.description}>{description}</div>
               </div>
+              <div className={classes.description}>{favCitiesInfo[city.key].description}</div>
             </div>
           </div>
-          <Paper
-            elevation={3}
-            className={classes.removeIcon}
-            onClick={() => {
-              props.removeFavoriteCity(city.key)
-            }}
-          >
-            <DeleteIcon />
-          </Paper>
         </div>
-      ))}
+        {renderRemoveIcon(city.key)}
+      </div>
+    ))
+  }
+
+  function renderFavBody() {
+    if (isLoader) {
+      return <CircularProgress className={classes.progress} />
+    }
+    if (isError) {
+      return (
+        <div className={classes.errorWrapper}>
+          <div>{ERROR_MSG}</div>
+          <div
+            onClick={getCityWeather}
+            className={classes.tryAgainBtn}
+            tabIndex={0}
+            role="button"
+          >
+            Try again
+          </div>
+        </div>
+      )
+    }
+    return renderCities()
+  }
+
+  return (
+    <div className={classes.favoritesWrapper}>
+      {renderFavBody()}
     </div>
   )
 }
@@ -147,6 +204,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-  connect(mapStateToProps, { setCity, setCurrentPage, removeFavoriteCity }),
+  connect(mapStateToProps, { setCity, removeFavoriteCity, resetCityDetails }),
   withStyles(styles),
 )(Favorites)

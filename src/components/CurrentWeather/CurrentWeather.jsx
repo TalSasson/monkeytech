@@ -56,8 +56,8 @@ const styles = (theme) => ({
 })
 
 function CurrentWeather(props) {
-  const { classes, city: { label: cityName }, cityDetails } = props
-  const { currWeatherInfo, country } = cityDetails || {}
+  const { classes, city: { label: cityName, country }, cityDetails } = props
+  const { currWeatherInfo } = cityDetails || {}
   const { temp, description, img } = currWeatherInfo || {}
 
   return (
