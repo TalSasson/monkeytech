@@ -16,8 +16,8 @@ const styles = (theme) => ({
       margin: '0 5px',
     },
     [theme.breakpoints.between('sm', 'md')]: {
-      margin: '0 10px',
-      fontSize: 12,
+      margin: '0 16px',
+      fontSize: 16,
     },
     [theme.breakpoints.up('md')]: {
       margin: '0 30px',
