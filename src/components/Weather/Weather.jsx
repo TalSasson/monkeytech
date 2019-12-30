@@ -28,9 +28,6 @@ function Weather(props) {
       <Switch>
         <Route exect path={ROUTES.home} component={HomePage} />
         <Route exect path={ROUTES.favorites} component={Favorites} />
-        <Route>
-          <div>No Match</div>
-        </Route>
       </Switch>
     </div>
   )

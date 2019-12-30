@@ -86,6 +86,13 @@ const styles = (theme) => ({
       padding: 3,
     },
   },
+  errorWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    color: 'white',
+  }
 })
 
 function Favorites(props) {

@@ -6,7 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder'
 import CurrentWeather from '../CurrentWeather/CurrentWeather'
 import AutoComplete from '../AutoComplete/AutoComplete'
-import { setCityDetails, setFavoriteCities } from '../../actions'
+import { setCityDetails, setFavoriteCities, removeFavoriteCity } from '../../actions'
 import { updateCurrentCityWeather, updateForecast, fetchAutoCompleteOptions } from '../../lib/api'
 import Forecast from '../Forecast/Forecast'
 import { ERROR_MSG } from '../../consts'
@@ -33,6 +33,7 @@ const styles = (theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
+    color: 'white',
   },
   tryAgainBtn: {
     marginTop: 10,
@@ -59,6 +60,9 @@ const styles = (theme) => ({
       margin: 50,
     },
   },
+  chosenCity: {
+    fill: 'red',
+  },
 })
 
 function HomePage(props) {
@@ -79,7 +83,6 @@ function HomePage(props) {
       }
       catch (e) {
         isShowLoader(false)
-        props.setCityDetails({})
         setIsError(true)
       }
     })()
@@ -112,13 +115,18 @@ function HomePage(props) {
     ]
   }
 
+  const isCityInFav = !!favoriteCities.find((city) => city.key === props.city.key)
+
   return (
     <div className={classes.homePageContainer}>
       <FavoriteBorderIcon
-        className={classes.heartImg}
+        className={`${classes.heartImg} ${isCityInFav ? classes.chosenCity : ''}`}
         onClick={() => {
-          if (props.city.key && !favoriteCities.find((city) => city.key === props.city.key)) {
+          if (!isCityInFav) {
             props.setFavoriteCities(props.city)
+          }
+          else {
+            props.removeFavoriteCity(key)
           }
         }}
       />
@@ -136,6 +144,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-  connect(mapStateToProps, { setCityDetails, setFavoriteCities }),
+  connect(mapStateToProps, { setCityDetails, setFavoriteCities, removeFavoriteCity }),
   withStyles(styles),
 )(HomePage)

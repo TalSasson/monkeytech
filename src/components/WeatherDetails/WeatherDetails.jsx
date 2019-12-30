@@ -36,24 +36,30 @@ const styles = (theme) => ({
     },
     margin: '12px 0',
   },
+  bold: {
+    fontWeight: 'bold',
+  },
+  minTemp: {
+    fontWeight: 'bold',
+  },
 })
 
 function WeatherDetails(props) {
-  const { classes, dayDetails } = props
+  const { classes, dayDetails, currDay } = props
   const { temp, dayTemp, date } = dayDetails
   const { min: minTemp, max: maxTemp } = temp
 
   return (
     <div className={classes.cardWrapper}>
-      <div className={classes.dayName}>{new Date(date).toString().split(' ')[0]}</div>
+      <div className={`${classes.dayName} ${currDay ? classes.bold : ''}`}>{new Date(date).toString().split(' ')[0]}</div>
       <img
         src={`${imageUrl}/${dayTemp.icon.toString().padStart(2, '0')}-s.png`}
         alt="daily weather icon"
         className={classes.icon}
       />
       <div>
-        {Math.round(minTemp)}
-        &#176; /
+        <span className={classes.minTemp}>{Math.round(minTemp)}
+        &#176;</span> /
         {' '}
         {Math.round(maxTemp)}
         &#176;
