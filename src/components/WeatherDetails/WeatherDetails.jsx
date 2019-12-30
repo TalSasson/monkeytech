@@ -38,7 +38,7 @@ const styles = (theme) => ({
   },
 })
 
-function WeatherDetailsCard(props) {
+function WeatherDetails(props) {
   const { classes, dayDetails } = props
   const { temp, dayTemp, date } = dayDetails
   const { min: minTemp, max: maxTemp } = temp
@@ -69,4 +69,4 @@ const mapStateToProps = (state) => ({
 export default compose(
   connect(mapStateToProps),
   withStyles(styles),
-)(WeatherDetailsCard)
+)(WeatherDetails)

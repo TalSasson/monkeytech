@@ -67,7 +67,6 @@ function HomePage(props) {
   const [isError, setIsError] = useState('')
 
   function getCityWeather() {
-    console.log('in getCityWeather', key)
     if (!key) return
     (async () => {
       try {

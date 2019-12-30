@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import uuid from 'uuid'
-import WeatherDetailsCard from '../WeatherDetailsCard/WeatherDetailsCard'
+import WeatherDetails from '../WeatherDetails/WeatherDetails'
 
 const styles = (theme) => ({
   container: {
@@ -55,7 +55,7 @@ function HomePage(props) {
       </svg>
       <div className={classes.cards}>
         {cityDetails.forecast.map((item) => (
-          <WeatherDetailsCard dayDetails={item} key={uuid.v4()} />
+          <WeatherDetails dayDetails={item} key={uuid.v4()} />
         ))}
       </div>
     </div>
