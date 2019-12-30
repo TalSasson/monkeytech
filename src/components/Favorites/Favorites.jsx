@@ -5,9 +5,9 @@ import Paper from '@material-ui/core/Paper'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { setCity, removeFavoriteCity, resetCityDetails } from '../../actions'
+import { setCity, removeFavoriteCity } from '../../actions'
 import { ROUTES, ERROR_MSG } from '../../consts'
-import { fetchCityWeather, fetchForecastDetails } from '../../lib/api'
+import { fetchCityWeather } from '../../lib/api'
 
 const styles = (theme) => ({
   favoritesWrapper: {
@@ -108,7 +108,6 @@ function Favorites(props) {
           ...acc,
           [favoriteCities[i].key]: info,
         }), {})
-        // const forecast = await Promise.all(favoriteCities.map((city) => fetchForecastDetails(city.key)))
         setFavCitiesInfo(citiesInfo)
         isShowLoader(false)
         setIsError(false)
@@ -204,6 +203,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-  connect(mapStateToProps, { setCity, removeFavoriteCity, resetCityDetails }),
+  connect(mapStateToProps, { setCity, removeFavoriteCity }),
   withStyles(styles),
 )(Favorites)

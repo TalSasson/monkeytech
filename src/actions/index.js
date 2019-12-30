@@ -32,15 +32,9 @@ const setCityDetails = (key, value) => ({
   value,
 })
 
-const resetCityDetails = (value) => ({
-  type: types.resetCityDetails,
-  value,
-})
-
 export {
   setCity,
   setCityDetails,
   setFavoriteCities,
   removeFavoriteCity,
-  resetCityDetails,
 }

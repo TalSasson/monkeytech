@@ -4,7 +4,6 @@ const types = {
   setFavoriteCities: 'SET_FAVORITE_CITIES',
   removeFavoriteCity: 'REMOVE_FAVORITE_CITY',
   updateFavorites: 'UPDATE_FAVORITES',
-  resetCityDetails: 'RESET_CITY_DETAILS',
 }
 
 export default types

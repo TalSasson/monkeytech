@@ -20,5 +20,4 @@ export default handleActions({
   [types.setCity]: (state, { value }) => state.setIn(['city'], value),
   [types.setCityDetails]: (state, { key, value }) => state.setIn(['cityDetails', key], value),
   [types.updateFavorites]: (state, { favorites }) => state.set('favoriteCities', favorites),
-  [types.resetCityDetails]: (state, { value }) => state.set('cityDetails', value),
 }, initialState)
