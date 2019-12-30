@@ -67,23 +67,24 @@ const styles = (theme) => ({
 
 function HomePage(props) {
   const { classes, city: { key = '', label }, favoriteCities } = props
-  const [isLoader, isShowLoader] = useState(false)
+  const [isLoader, setIsLoader] = useState(false)
   const [isError, setIsError] = useState('')
 
   function getCityWeather() {
     if (!key) return
     (async () => {
       try {
-        isShowLoader(true)
+        setIsLoader(true)
         await fetchAutoCompleteOptions(label)
         await updateCurrentCityWeather(key)
         await updateForecast(key)
-        isShowLoader(false)
         setIsError(false)
       }
       catch (e) {
-        isShowLoader(false)
         setIsError(true)
+      }
+      finally {
+        setIsLoader(false)
       }
     })()
   }

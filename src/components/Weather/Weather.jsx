@@ -2,6 +2,7 @@ import React from 'react'
 import {
   Switch,
   Route,
+  Redirect,
 } from 'react-router-dom'
 import { withStyles } from '@material-ui/core/styles'
 import { ROUTES } from '../../consts'
@@ -28,6 +29,7 @@ function Weather(props) {
       <Switch>
         <Route exect path={ROUTES.home} component={HomePage} />
         <Route exect path={ROUTES.favorites} component={Favorites} />
+        <Route path="/" render={() => <Redirect to="/home"/>} />
       </Switch>
     </div>
   )

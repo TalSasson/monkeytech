@@ -11,7 +11,6 @@ const styles = (theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     boxSizing: 'border-box',
-    // alignItems: 'center',
     minHeight: 200,
     maxHeight: 200,
     [theme.breakpoints.down('sm')]: {
@@ -29,7 +28,6 @@ const styles = (theme) => ({
     flexGrow: 1,
     zIndex: 1,
     justifyContent: 'center',
-    // alignItems: 'center',
     height: '100%',
     [theme.breakpoints.down('sm')]: {
       fontSize: 14,

@@ -2,7 +2,6 @@ import React from 'react'
 import injectSheet from 'react-jss'
 import { MuiThemeProvider } from '@material-ui/core'
 import { BrowserRouter as Router } from 'react-router-dom'
-import './App.css'
 import Weather from './components/Weather/Weather'
 import theme from './lib/theme'
 

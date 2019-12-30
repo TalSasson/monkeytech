@@ -92,12 +92,19 @@ const styles = (theme) => ({
     alignItems: 'center',
     flexDirection: 'column',
     color: 'white',
-  }
+  },
+  tryAgainBtn: {
+    border: '2px solid #29aec8',
+    cursor: 'pointer',
+    padding: '5px 15px',
+    marginTop: 10,
+    borderRadius: 5,
+  },
 })
 
 function Favorites(props) {
   const { classes, favoriteCities = [] } = props
-  const [isLoader, isShowLoader] = useState(true)
+  const [isLoader, setIsLoader] = useState(true)
   const [isError, setIsError] = useState(false)
   const [favCitiesInfo, setFavCitiesInfo] = useState({})
 
@@ -109,19 +116,23 @@ function Favorites(props) {
   function getCityWeather() {
     (async () => {
       try {
-        isShowLoader(true)
+        setIsLoader(true)
         const cities = await Promise.all(favoriteCities.map((city) => fetchCityWeather(city.key)))
         const citiesInfo = cities.reduce((acc, info, i) => ({
           ...acc,
           [favoriteCities[i].key]: info,
         }), {})
+        if (!Object.keys(citiesInfo).length) {
+          throw new Error()
+        }
         setFavCitiesInfo(citiesInfo)
-        isShowLoader(false)
         setIsError(false)
       }
       catch (e) {
-        isShowLoader(false)
         setIsError(true)
+      }
+      finally {
+        setIsLoader(false)
       }
     })()
   }
