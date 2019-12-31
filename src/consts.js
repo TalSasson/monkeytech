@@ -8,6 +8,8 @@ const ROUTES = {
   favorites: '/favorites',
 }
 
+const API_KEY = process.env.REACT_APP_API_KEY || 'ffpsC7tB7gMx6M5wpLeetkQxLXrwLF6V'
+
 
 export {
   weatherUrl,
@@ -15,4 +17,5 @@ export {
   DEFAULT_LOCATION,
   ROUTES,
   ERROR_MSG,
+  API_KEY,
 }

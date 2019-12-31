@@ -1,10 +1,10 @@
 import _get from 'lodash/get'
 import store from '../store'
 import { setCityDetails } from '../actions'
-import { weatherUrl, imageUrl } from '../consts'
+import { weatherUrl, imageUrl, API_KEY } from '../consts'
 
 async function fetchCityWeather(key) {
-  const response = await fetch(`${weatherUrl}/currentconditions/v1/${key}?apikey=ffpsC7tB7gMx6M5wpLeetkQxLXrwLF6V`)
+  const response = await fetch(`${weatherUrl}/currentconditions/v1/${key}?apikey=${API_KEY}`)
   const currentWeatherDetails = await response.json()
   const { WeatherText, Temperature, WeatherIcon } = currentWeatherDetails[0] || []
   const wearherImage = `${imageUrl}/${WeatherIcon.toString().padStart(2, '0')}-s.png`
@@ -22,13 +22,13 @@ async function updateCurrentCityWeather(key) {
 }
 
 async function fetchAutoCompleteOptions(value) {
-  const response = await fetch(`${weatherUrl}/locations/v1/cities/autocomplete?apikey=ffpsC7tB7gMx6M5wpLeetkQxLXrwLF6V&q=${value}`)
+  const response = await fetch(`${weatherUrl}/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${value}`)
   const cities = await response.json()
   return cities
 }
 
 async function fetchForecastDetails(key) {
-  const response = await fetch(`${weatherUrl}/forecasts/v1/daily/5day/${key}?apikey=ffpsC7tB7gMx6M5wpLeetkQxLXrwLF6V&metric=true`)
+  const response = await fetch(`${weatherUrl}/forecasts/v1/daily/5day/${key}?apikey=${API_KEY}&metric=true`)
   const forecast = await response.json()
   const { DailyForecasts } = forecast || {}
 
