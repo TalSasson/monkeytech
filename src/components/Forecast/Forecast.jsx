@@ -13,13 +13,9 @@ const styles = (theme) => ({
     boxSizing: 'border-box',
     minHeight: 200,
     maxHeight: 200,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       minHeight: 185,
       maxHeight: 185,
-    },
-    [theme.breakpoints.between('sm', 'md')]: {
-      minHeight: 200,
-      maxHeight: 200,
     },
   },
   cards: {
