@@ -22,6 +22,10 @@ const styles = (theme) => ({
     width: '100%',
     justifyContent: 'space-between',
     padding: '10px 20px',
+    outline: 'none',
+    [theme.breakpoints.down('sm')]: {
+      padding: 10,
+    },
     boxSizing: 'border-box',
     alignItems: 'center',
     cursor: 'pointer',
@@ -51,10 +55,10 @@ const styles = (theme) => ({
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    width: 90,
+    width: 100,
     [theme.breakpoints.down('sm')]: {
       justifyContent: 'center',
-      width: 70,
+      width: 75,
     },
   },
   description: {
