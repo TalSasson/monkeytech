@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { setCity, removeFavoriteCity, setCurrentPage } from '../../actions'
+import { setCity, removeFavoriteCity } from '../../actions'
 import { ROUTES, ERROR_MSG } from '../../consts'
 import { fetchCityWeather } from '../../lib/api'
 
@@ -24,7 +24,7 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     padding: '10px 20px',
     outline: 'none',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       padding: 10,
     },
     boxSizing: 'border-box',
@@ -38,7 +38,7 @@ const styles = (theme) => ({
   },
   cityName: {
     fontSize: 30,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       fontSize: 17,
     },
   },
@@ -47,7 +47,7 @@ const styles = (theme) => ({
   },
   img: {
     margin: 20,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       margin: '10px 0',
     },
   },
@@ -57,13 +57,13 @@ const styles = (theme) => ({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     width: 100,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       justifyContent: 'center',
       width: 75,
     },
   },
   description: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       fontSize: 12,
     },
   },
@@ -133,7 +133,6 @@ function Favorites(props) {
 
   function handleCityClick(city) {
     props.setCity(city)
-    // props.setCurrentPage('home')
     props.history.push(ROUTES.home)
   }
 
@@ -180,9 +179,9 @@ function Favorites(props) {
   function renderNoFavorites() {
     return (
       <div className={classes.noFavoritesContainer}>
-          <div className={classes.noFavoritesCard}>
-            You don't have favorites yet, try to add one in the home page
-          </div>
+        <div className={classes.noFavoritesCard}>
+            There is no favorites yet, try to add one in the home page
+        </div>
       </div>
     )
   }
@@ -258,6 +257,6 @@ const mapStateToProps = (state) => ({
 })
 
 export default compose(
-  connect(mapStateToProps, { setCity, removeFavoriteCity, setCurrentPage }),
+  connect(mapStateToProps, { setCity, removeFavoriteCity }),
   withStyles(styles),
 )(Favorites)

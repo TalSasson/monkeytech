@@ -4,19 +4,12 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { compose } from 'redux'
 import { withStyles } from '@material-ui/core/styles'
 import { ROUTES } from '../../consts'
 import Header from '../Header/Header'
 import HomePage from '../HomePage/HomePage'
 import Favorites from '../Favorites/Favorites'
 import bg from '../../assets/bg.jpeg'
-
-const PAGES = {
-  home: 'home',
-  favorites: 'favorites',
-}
 
 const styles = {
   weatherContainer: {
@@ -29,23 +22,11 @@ const styles = {
 }
 
 function Weather(props) {
-  const { classes, currentPage } = props
-
-  function renderCurrentPage() {
-    switch (currentPage) {
-      case PAGES.home:
-        return <HomePage />
-      case PAGES.favorites:
-        return <Favorites />
-      default:
-        return <HomePage />
-    }
-  }
+  const { classes } = props
 
   return (
     <div className={classes.weatherContainer}>
       <Header />
-      {/* {renderCurrentPage()} */}
       <Switch>
         <Route exect path={ROUTES.home} component={HomePage} />
         <Route exect path={ROUTES.favorites} component={Favorites} />
@@ -55,13 +36,4 @@ function Weather(props) {
   )
 }
 
-const mapStateToProps = (state) => ({
-  currentPage: state.currentPage,
-})
-
-export default compose(
-  connect(mapStateToProps),
-  withStyles(styles),
-)(Weather)
-
-// export default withStyles(styles)(Weather)
+export default withStyles(styles)(Weather)

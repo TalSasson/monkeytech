@@ -32,15 +32,9 @@ const setCityDetails = (key, value) => ({
   value,
 })
 
-const setCurrentPage = (value) => ({
-  type: types.setCurrentPage,
-  value,
-})
-
 export {
   setCity,
   setCityDetails,
   setFavoriteCities,
   removeFavoriteCity,
-  setCurrentPage,
 }

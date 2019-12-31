@@ -8,7 +8,7 @@ const ROUTES = {
   favorites: '/favorites',
 }
 
-const API_KEY = process.env.REACT_APP_API_KEY || 'LN5821nXqTxJ9DnFUusxbBsX3SAqyyij'
+const API_KEY = process.env.REACT_APP_API_KEY || 'axAx9ZWTJmYeQeGe0Yi3bSLQY96dNVUR'
 
 
 export {

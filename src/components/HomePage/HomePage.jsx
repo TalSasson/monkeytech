@@ -53,11 +53,8 @@ const styles = (theme) => ({
     '&:hover': {
       fill: 'red',
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       margin: '42px 20px',
-    },
-    [theme.breakpoints.between('sm', 'md')]: {
-      margin: 50,
     },
   },
   chosenCity: {

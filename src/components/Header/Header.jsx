@@ -7,22 +7,15 @@ import { withStyles, useTheme } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import StarBorderIcon from '@material-ui/icons/StarBorder'
 import AppsIcon from '@material-ui/icons/Apps'
-import { connect } from 'react-redux'
 import { compose } from 'redux'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { ROUTES } from '../../consts'
-import { setCurrentPage } from '../../actions'
-
-const TITLE = 'Herolo weather task'
 
 const styles = (theme) => ({
   title: {
     flexGrow: 1,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       fontSize: 13,
-    },
-    [theme.breakpoints.between('sm', 'md')]: {
-      fontSize: 20,
     },
   },
   headerBtnsWrapper: {
@@ -44,7 +37,7 @@ const styles = (theme) => ({
 })
 
 function Header(props) {
-  const { classes, location: { pathname }, currentPage } = props
+  const { classes, location: { pathname } } = props
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.down('xs'))
 
@@ -52,7 +45,7 @@ function Header(props) {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          {TITLE}
+          Herolo weather task
         </Typography>
         <div className={classes.headerBtnsWrapper}>
           <Link to={ROUTES.home} className={classes.link}>
@@ -60,10 +53,6 @@ function Header(props) {
               color={pathname === ROUTES.home ? 'secondary' : ''}
               variant="text"
               className={`${matches ? classes.hide : classes.visible}`}
-              // onClick={() => {
-              //   console.log('in click')
-              //   props.setCurrentPage('home')
-              // }}
             >
               Home
             </Button>
@@ -74,9 +63,8 @@ function Header(props) {
               color={pathname === ROUTES.favorites ? 'secondary' : ''}
               variant="text"
               className={`${matches ? classes.hide : classes.visible}`}
-              // onClick={() => props.setCurrentPage('favorites')}
             >
-            Favorites
+              Favorites
             </Button>
             <StarBorderIcon className={`${!matches ? classes.hide : classes.visible}`} />
           </Link>
@@ -86,12 +74,7 @@ function Header(props) {
   )
 }
 
-const mapStateToProps = (state) => ({
-  currentPage: state.currentPage,
-})
-
 export default compose(
   withRouter,
-  connect(mapStateToProps, { setCurrentPage }),
   withStyles(styles),
 )(Header)

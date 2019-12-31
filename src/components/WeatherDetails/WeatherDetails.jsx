@@ -1,7 +1,5 @@
 import React from 'react'
 import { withStyles } from '@material-ui/core/styles'
-import { connect } from 'react-redux'
-import { compose } from 'redux'
 import { imageUrl } from '../../consts'
 
 const styles = (theme) => ({
@@ -15,10 +13,6 @@ const styles = (theme) => ({
     [theme.breakpoints.down('sm')]: {
       margin: '0 5px',
     },
-    [theme.breakpoints.between('sm', 'md')]: {
-      margin: '0 16px',
-      fontSize: 16,
-    },
     [theme.breakpoints.up('md')]: {
       margin: '0 30px',
       fontSize: 20,
@@ -28,7 +22,7 @@ const styles = (theme) => ({
     color: 'black',
   },
   icon: {
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       width: 60,
     },
     [theme.breakpoints.up('sm')]: {
@@ -75,11 +69,4 @@ function WeatherDetails(props) {
   )
 }
 
-const mapStateToProps = (state) => ({
-  chosenCityDetails: state.chosenCityDetails,
-})
-
-export default compose(
-  connect(mapStateToProps),
-  withStyles(styles),
-)(WeatherDetails)
+export default withStyles(styles)(WeatherDetails)

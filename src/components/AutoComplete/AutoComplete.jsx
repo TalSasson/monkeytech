@@ -13,11 +13,8 @@ const styles = (theme) => ({
   autoComplete: {
     width: 300,
     margin: '30px auto',
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       width: 220,
-    },
-    [theme.breakpoints.between('sm', 'md')]: {
-      width: 300,
     },
   },
   textfield: {

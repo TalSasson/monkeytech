@@ -31,11 +31,8 @@ const styles = (theme) => ({
   },
   cityName: {
     fontSize: 50,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       fontSize: 37,
-    },
-    [theme.breakpoints.between('sm', 'md')]: {
-      fontSize: 50,
     },
   },
   tempIconWrapper: {
@@ -46,11 +43,8 @@ const styles = (theme) => ({
   },
   degree: {
     fontSize: 85,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('xs')]: {
       fontSize: 65,
-    },
-    [theme.breakpoints.between('sm', 'md')]: {
-      fontSize: 85,
     },
   },
 })
