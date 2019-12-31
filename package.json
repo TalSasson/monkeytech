@@ -2,10 +2,6 @@
   "name": "weather-app",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "npm": "6.9.0",
-    "node": "10.16.0"
-  },
   "dependencies": {
     "@material-ui/core": "^4.8.1",
     "@material-ui/icons": "^4.5.1",
@@ -48,7 +44,6 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://TalSasson.github.io/Tal-Sasson-27-12-2019",
   "devDependencies": {
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.0.1",
