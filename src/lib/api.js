@@ -4,7 +4,7 @@ import { setCityDetails } from '../actions'
 import { weatherUrl, imageUrl } from '../consts'
 
 async function fetchCityWeather(key) {
-  const response = await fetch(`${weatherUrl}/currentconditions/v1/${key}?apikey=UAgHWpoNWpWZ8dZDh0yoyBUldjHfkzvK`)
+  const response = await fetch(`${weatherUrl}/currentconditions/v1/${key}?apikey=ffpsC7tB7gMx6M5wpLeetkQxLXrwLF6V`)
   const currentWeatherDetails = await response.json()
   const { WeatherText, Temperature, WeatherIcon } = currentWeatherDetails[0] || []
   const wearherImage = `${imageUrl}/${WeatherIcon.toString().padStart(2, '0')}-s.png`
@@ -22,13 +22,13 @@ async function updateCurrentCityWeather(key) {
 }
 
 async function fetchAutoCompleteOptions(value) {
-  const response = await fetch(`${weatherUrl}/locations/v1/cities/autocomplete?apikey=UAgHWpoNWpWZ8dZDh0yoyBUldjHfkzvK&q=${value}`)
+  const response = await fetch(`${weatherUrl}/locations/v1/cities/autocomplete?apikey=ffpsC7tB7gMx6M5wpLeetkQxLXrwLF6V&q=${value}`)
   const cities = await response.json()
   return cities
 }
 
 async function fetchForecastDetails(key) {
-  const response = await fetch(`${weatherUrl}/forecasts/v1/daily/5day/${key}?apikey=UAgHWpoNWpWZ8dZDh0yoyBUldjHfkzvK&metric=true`)
+  const response = await fetch(`${weatherUrl}/forecasts/v1/daily/5day/${key}?apikey=ffpsC7tB7gMx6M5wpLeetkQxLXrwLF6V&metric=true`)
   const forecast = await response.json()
   const { DailyForecasts } = forecast || {}
 
