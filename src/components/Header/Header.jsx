@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { ROUTES } from '../../consts'
+import { setCurrentPage } from '../../actions'
 
 const TITLE = 'Herolo weather task'
 
@@ -43,7 +44,7 @@ const styles = (theme) => ({
 })
 
 function Header(props) {
-  const { classes, location: { pathname } } = props
+  const { classes, location: { pathname }, currentPage } = props
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.down('xs'))
 
@@ -54,26 +55,31 @@ function Header(props) {
           {TITLE}
         </Typography>
         <div className={classes.headerBtnsWrapper}>
-          <Link to={ROUTES.home} className={classes.link}>
+          {/* <Link to={ROUTES.home} className={classes.link}> */}
             <Button
-              color={pathname === ROUTES.home ? 'secondary' : ''}
+              color={currentPage === 'home' ? 'secondary' : ''}
               variant="text"
               className={`${matches ? classes.hide : classes.visible}`}
+              onClick={() => {
+                console.log('in click')
+                props.setCurrentPage('home')
+              }}
             >
               Home
             </Button>
             <AppsIcon className={`${!matches ? classes.hide : classes.visible}`} />
-          </Link>
-          <Link to={ROUTES.favorites} className={classes.link}>
+          {/* </Link> */}
+          {/* <Link to={ROUTES.favorites} className={classes.link}> */}
             <Button
-              color={pathname === ROUTES.favorites ? 'secondary' : ''}
+              color={currentPage === 'favorites' ? 'secondary' : ''}
               variant="text"
               className={`${matches ? classes.hide : classes.visible}`}
+              onClick={() => props.setCurrentPage('favorites')}
             >
             Favorites
             </Button>
             <StarBorderIcon className={`${!matches ? classes.hide : classes.visible}`} />
-          </Link>
+          {/* </Link> */}
         </div>
       </Toolbar>
     </AppBar>
@@ -86,6 +92,6 @@ const mapStateToProps = (state) => ({
 
 export default compose(
   withRouter,
-  connect(mapStateToProps),
+  connect(mapStateToProps, { setCurrentPage }),
   withStyles(styles),
 )(Header)
