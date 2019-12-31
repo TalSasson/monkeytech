@@ -51,15 +51,22 @@ function WeatherDetails(props) {
 
   return (
     <div className={classes.cardWrapper}>
-      <div className={`${classes.dayName} ${currDay ? classes.bold : ''}`}>{new Date(date).toString().split(' ')[0]}</div>
+      <div className={`${classes.dayName} ${currDay ? classes.bold : ''}`}>
+        {new Date(date).toString().split(' ')[0]}
+      </div>
       <img
         src={`${imageUrl}/${dayTemp.icon.toString().padStart(2, '0')}-s.png`}
         alt="daily weather icon"
         className={classes.icon}
       />
       <div>
-        <span className={classes.minTemp}>{Math.round(minTemp)}
-        &#176;</span> /
+        <span className={classes.minTemp}>
+          {Math.round(minTemp)}
+        &#176;
+
+        </span>
+        {' '}
+/
         {' '}
         {Math.round(maxTemp)}
         &#176;

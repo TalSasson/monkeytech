@@ -52,9 +52,10 @@ function AutoComplete(props) {
     try {
       const cities = await fetchAutoCompleteOptions(value)
       setIsError(false)
-      setOptions(cities.map((city) => ({ label: city.LocalizedName, key: city.Key, country: city.Country.LocalizedName })))
+      setOptions(cities
+        .map((city) => ({ label: city.LocalizedName, key: city.Key, country: city.Country.LocalizedName })))
     }
-    catch (e) {
+    catch (error) {
       setIsError(true)
     }
   }
@@ -80,7 +81,7 @@ function AutoComplete(props) {
       getOptionLabel={(option) => option.label}
       options={options}
       loading={loading}
-      classes={{popupIndicator: classes.invisble, clearIndicator: classes.clearIndicator}}
+      classes={{ popupIndicator: classes.invisble, clearIndicator: classes.clearIndicator }}
       renderInput={(params) => (
         <TextField
           // eslint-disable-next-line react/jsx-props-no-spreading

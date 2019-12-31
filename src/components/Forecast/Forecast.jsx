@@ -65,7 +65,7 @@ function HomePage(props) {
       </svg>
       <div className={classes.cards}>
         {cityDetails.forecast.map((item, i) => (
-          <WeatherDetails dayDetails={item} key={uuid.v4()} currDay={!i}/>
+          <WeatherDetails dayDetails={item} key={uuid.v4()} currDay={!i} />
         ))}
       </div>
     </div>
