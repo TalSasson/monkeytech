@@ -13,9 +13,10 @@ const styles = (theme) => ({
   favoritesWrapper: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     padding: 32,
+    flexGrow: 1,
   },
   city: {
     display: 'flex',
@@ -80,7 +81,6 @@ const styles = (theme) => ({
     marginTop: 4,
     marginLeft: 15,
     background: 'transparent',
-    height: '100%',
     cursor: 'pointer',
     '&:hover': {
       opacity: 0.8,
@@ -104,6 +104,25 @@ const styles = (theme) => ({
     marginTop: 10,
     borderRadius: 5,
   },
+  noFavoritesContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+  },
+  noFavoritesCard: {
+    color: 'white',
+    padding: 32,
+    background: 'rgba(0,0,0,0.45)',
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    border: '1px solid white',
+    textAlign: 'center',
+    lineHeight: 2,
+  },
 })
 
 function Favorites(props) {
@@ -114,8 +133,8 @@ function Favorites(props) {
 
   function handleCityClick(city) {
     props.setCity(city)
-    props.setCurrentPage('home')
-    // props.history.push(ROUTES.home)
+    // props.setCurrentPage('home')
+    props.history.push(ROUTES.home)
   }
 
   function getCityWeather() {
@@ -127,7 +146,7 @@ function Favorites(props) {
           ...acc,
           [favoriteCities[i].key]: info,
         }), {})
-        if (!Object.keys(citiesInfo).length) {
+        if (favoriteCities.length && !Object.keys(citiesInfo).length) {
           throw new Error()
         }
         setFavCitiesInfo(citiesInfo)
@@ -158,7 +177,20 @@ function Favorites(props) {
     )
   }
 
+  function renderNoFavorites() {
+    return (
+      <div className={classes.noFavoritesContainer}>
+          <div className={classes.noFavoritesCard}>
+            You don't have favorites yet, try to add one in the home page
+          </div>
+      </div>
+    )
+  }
+
   function renderCities() {
+    if (!favoriteCities.length) {
+      return renderNoFavorites()
+    }
     return favoriteCities.map((city) => (
       <div key={city.key} className={classes.favCityContainer}>
         <div

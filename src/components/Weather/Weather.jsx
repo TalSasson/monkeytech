@@ -45,12 +45,12 @@ function Weather(props) {
   return (
     <div className={classes.weatherContainer}>
       <Header />
-      {renderCurrentPage()}
-      {/* <Switch>
+      {/* {renderCurrentPage()} */}
+      <Switch>
         <Route exect path={ROUTES.home} component={HomePage} />
         <Route exect path={ROUTES.favorites} component={Favorites} />
         <Route path="/" render={() => <Redirect to="/home" />} />
-      </Switch> */}
+      </Switch>
     </div>
   )
 }

@@ -30,13 +30,13 @@ const styles = (theme) => ({
   },
   link: {
     textDecoration: 'none',
-    '& > svg': {
-      fill: 'white',
-      marginLeft: 15,
-    },
   },
   visible: {
     display: 'block',
+    [theme.breakpoints.down('xs')]: {
+      fill: 'white',
+      marginLeft: 15,
+    },
   },
   hide: {
     display: 'none',
@@ -55,31 +55,31 @@ function Header(props) {
           {TITLE}
         </Typography>
         <div className={classes.headerBtnsWrapper}>
-          {/* <Link to={ROUTES.home} className={classes.link}> */}
+          <Link to={ROUTES.home} className={classes.link}>
             <Button
-              color={currentPage === 'home' ? 'secondary' : ''}
+              color={pathname === ROUTES.home ? 'secondary' : ''}
               variant="text"
               className={`${matches ? classes.hide : classes.visible}`}
-              onClick={() => {
-                console.log('in click')
-                props.setCurrentPage('home')
-              }}
+              // onClick={() => {
+              //   console.log('in click')
+              //   props.setCurrentPage('home')
+              // }}
             >
               Home
             </Button>
             <AppsIcon className={`${!matches ? classes.hide : classes.visible}`} />
-          {/* </Link> */}
-          {/* <Link to={ROUTES.favorites} className={classes.link}> */}
+          </Link>
+          <Link to={ROUTES.favorites} className={classes.link}>
             <Button
-              color={currentPage === 'favorites' ? 'secondary' : ''}
+              color={pathname === ROUTES.favorites ? 'secondary' : ''}
               variant="text"
               className={`${matches ? classes.hide : classes.visible}`}
-              onClick={() => props.setCurrentPage('favorites')}
+              // onClick={() => props.setCurrentPage('favorites')}
             >
             Favorites
             </Button>
             <StarBorderIcon className={`${!matches ? classes.hide : classes.visible}`} />
-          {/* </Link> */}
+          </Link>
         </div>
       </Toolbar>
     </AppBar>
