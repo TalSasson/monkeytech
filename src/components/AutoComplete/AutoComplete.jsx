@@ -71,6 +71,7 @@ function AutoComplete(props) {
         setOpen(false)
       }}
       onChange={(e, value) => {
+        console.log({ value })
         if (!value) return
         props.setCity(value || {})
       }}

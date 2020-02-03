@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import DeleteIcon from '@material-ui/icons/DeleteOutline'
 import Paper from '@material-ui/core/Paper'
@@ -160,7 +160,7 @@ function Favorites(props) {
     })()
   }
 
-  useState(getCityWeather, [favoriteCities])
+  useEffect(getCityWeather, [])
 
   function renderRemoveIcon(key) {
     return (

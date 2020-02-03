@@ -45,7 +45,7 @@ function Header(props) {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Herolo weather task
+          Weather app
         </Typography>
         <div className={classes.headerBtnsWrapper}>
           <Link to={ROUTES.home} className={classes.link}>
