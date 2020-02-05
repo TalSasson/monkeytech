@@ -1,9 +1,8 @@
 import React from 'react'
 import injectSheet from 'react-jss'
 import { MuiThemeProvider } from '@material-ui/core'
-import { BrowserRouter as Router } from 'react-router-dom'
-import Weather from './components/Weather/Weather'
 import theme from './lib/theme'
+import HomePage from '../src/components/HomePage/HomePage'
 
 const style = {
   appContainer: {
@@ -16,11 +15,9 @@ const style = {
 
 const App = ({ classes }) => (
   <MuiThemeProvider theme={theme}>
-    <Router>
-      <div className={classes.appContainer}>
-        <Weather />
-      </div>
-    </Router>
+    <div className={classes.appContainer}>
+      <HomePage />
+    </div>
   </MuiThemeProvider>
 )
 
