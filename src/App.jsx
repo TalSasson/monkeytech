@@ -1,24 +1,24 @@
 import React from 'react'
 import injectSheet from 'react-jss'
-import { MuiThemeProvider } from '@material-ui/core'
-import theme from './lib/theme'
-import HomePage from '../src/components/HomePage/HomePage'
+import HomePage from './components/HomePage/HomePage'
 
 const style = {
   appContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     fontFamily: 'sans-serif',
-    width: '100%',
+    width: '100vw',
     height: '100vh',
     boxSizing: 'border-box',
+    overflowY: 'scroll',
   },
 }
 
 const App = ({ classes }) => (
-  <MuiThemeProvider theme={theme}>
-    <div className={classes.appContainer}>
-      <HomePage />
-    </div>
-  </MuiThemeProvider>
+  <div className={classes.appContainer}>
+    <HomePage />
+  </div>
 )
 
 export default injectSheet(style)(App)
