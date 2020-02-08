@@ -13,7 +13,7 @@
 # Download & Run
 run the following commands
 ```
-git clone https://github.com/TalSasson/Tal-Sasson-27-12-2019.git TalSasson
+git clone https://github.com/TalSasson/The-Jungle-FastRider.git TalSasson
 cd TalSasson
 npm i
 npm start
