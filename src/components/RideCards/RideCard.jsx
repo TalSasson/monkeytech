@@ -2,17 +2,63 @@ import React from 'react'
 import withStyles from 'react-jss'
 import ticket from '../../assets/ticket.png'
 import clock from '../../assets/clock.png'
+import { THEME } from '../../consts'
 
 const styles = {
+  rideDetails: {
+    userSelect: 'none',
+    width: 150,
+    height: 150,
+    display: 'flex',
+    flexDirection: 'column',
+    background: THEME.cardBackground,
+    boxSizing: 'border-box',
+    color: THEME.text,
+    margin: 4,
+    outline: 'none',
+    cursor: 'pointer',
+  },
+  '@media (max-width: 600px)': {
+    rideDetails: {
+      width: 'calc((100vw - 41px) / 2)',
+      height: 'calc((100vw - 41px) / 2)',
+    },
+  },
+  selectedCard: {
+    background: ({ card: { zone: { color } } }) => (color),
+  },
+  lineColor: {
+    background: ({ card: { zone: { color } } }) => (color),
+    flexBasis: 5,
+    flexShrink: 0,
+  },
+  content: {
+    padding: '5px 5px 10px 5px',
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  zone: {
+    textAlign: 'right',
+    fontWeight: 'bold',
+    fontSize: 15,
+  },
+  rideName: {
+    color: 'white',
+    fontSize: 24,
+    margin: '20px 0',
+    textAlign: 'center',
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
   bottomDetailsLine: {
     display: 'flex',
     justifyContent: 'space-between',
     padding: '0px 9px',
     fontWeight: 'bold',
     fontSize: 15,
-  },
-  selectedCard: {
-    background: ({ card: { zone: { color } } }) => (color),
   },
   returnTimeWrapper: {
     display: 'flex',
@@ -28,49 +74,6 @@ const styles = {
   img: {
     width: 17,
     marginRight: 5,
-  },
-  rideDetails: {
-    width: 150,
-    height: 150,
-    display: 'flex',
-    flexDirection: 'column',
-    background: '#373737',
-    boxSizing: 'border-box',
-    color: '#656565',
-    margin: 4,
-    outline: 'none',
-    cursor: 'pointer',
-  },
-  '@media (max-width: 600px)': {
-    rideDetails: {
-      width: 'calc((100vw - 41px) / 2)',
-      height: 'calc((100vw - 41px) / 2)',
-    },
-  },
-  rideName: {
-    color: 'white',
-    fontSize: 24,
-    margin: '20px 0',
-    textAlign: 'center',
-    flexGrow: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-  content: {
-    padding: '5px 5px 10px 5px',
-    flexGrow: 1,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  zone: {
-    textAlign: 'right',
-    fontWeight: 'bold',
-    fontSize: 15,
-  },
-  lineColor: {
-    background: ({ card: { zone: { color } } }) => (color),
-    height: 5,
   },
 }
 

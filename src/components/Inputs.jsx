@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import withStyles from 'react-jss'
-import { setPinCode } from '../../actions'
+import { setPinCode } from '../actions'
+import { BUTTON_HEIGHT } from '../consts'
 
 
 const styles = {
@@ -26,23 +27,24 @@ const styles = {
     fontSize: 18,
     textTransform: 'uppercase',
     cursor: 'pointer',
+    userSelect: 'none',
   },
   '@media all and (max-width: 600px)': {
     sendBtn: {
       position: 'fixed',
       left: 0,
       right: 0,
-      bottom: 0,
+      bottom: -BUTTON_HEIGHT,
       width: '100vw',
       fontSize: 24,
-      height: 80,
+      height: BUTTON_HEIGHT,
     },
   },
 }
 
 function Inputs(props) {
   const {
-    classes, dispatch, pinCode, selectedRideId, getAccessCode,
+    classes, dispatch, pinCode, selectedRideId, getAccessCode, buttonRef,
   } = props
 
   function handleBlur(e) {
@@ -63,6 +65,7 @@ function Inputs(props) {
         className={classes.sendBtn}
         disabled={!pinCode || !selectedRideId}
         onClick={getAccessCode}
+        ref={buttonRef}
       >
             Submit
       </button>

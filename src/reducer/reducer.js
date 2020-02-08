@@ -1,22 +1,23 @@
 import Immutable from 'seamless-immutable'
 import { handleActions } from 'redux-actions'
 import types from '../actions/types'
+import { LOCAL_STORAGE_KEY } from '../consts'
 
 const initialState = Immutable({
-  pinCode: '',
+  pinCode: localStorage.getItem(LOCAL_STORAGE_KEY) || '',
   selectedRideId: '',
   bookedTicketDetails: {
     ride: {
       zone: {
         name: 'Gibbon Islans',
-        color: 'rgb(231, 111, 104)',
+        color: '#e76f68',
       },
-      name: 'Rings of Black',
-      remaining_tickets: 0,
-      return_time: '2020-02-05T08:34:45.855Z',
+      name: 'Tropical Rush',
+      remaining_tickets: 29,
+      return_time: '2020-02-08T10:30:00.000+02:00',
     },
-    access_code: '134A-7155-9CB1',
-    return_time: '2020-02-05T08:34:45.855Z',
+    access_code: '',
+    return_time: '2020-02-08T10:30:00.000+02:00',
   },
 })
 
