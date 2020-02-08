@@ -83,7 +83,7 @@ function RideCard(props) {
     classes, card, onClick, isSelected,
   } = props
   const { zone: { name: zoneName }, name, return_time, remaining_tickets } = card
-  console.log(card)
+
   return (
     <div
       role="button"

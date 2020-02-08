@@ -9,6 +9,7 @@ import { setBookedTicketDetails } from './actions'
 import Inputs from './components/Inputs'
 import CardsGrid from './components/RideCards/CardsGrid'
 import BookedRide from './components/BookedRide'
+import pinCodeValidation from './lib/validation'
 
 const styles = {
   appContainer: {
@@ -95,6 +96,7 @@ function App(props) {
   } = props
   const [rides, setRides] = useState([])
   const [errorMsg, setErrorMsg] = useState('')
+  const [pinCodeError, setPinCodeError] = useState('')
   const buttonRef = useRef(null)
   const appContainerRef = useRef(null)
 
@@ -136,6 +138,11 @@ function App(props) {
   async function getAccessCode() {
     try {
       setErrorMsg('')
+      const pinValidationErrorMsg = pinCodeValidation()
+      if (pinValidationErrorMsg) {
+        setErrorMsg(pinValidationErrorMsg)
+        return
+      }
       const ticketDetails = await requestAccessCode()
       if (ticketDetails.message) {
         setErrorMsg(ticketDetails.message)

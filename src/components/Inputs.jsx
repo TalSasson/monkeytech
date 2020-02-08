@@ -67,7 +67,7 @@ function Inputs(props) {
         onClick={getAccessCode}
         ref={buttonRef}
       >
-            Submit
+        Submit
       </button>
     </div>
   )
