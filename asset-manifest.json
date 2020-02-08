@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.9a196862.chunk.css",
-    "main.js": "/static/js/main.f70d54d0.chunk.js",
-    "main.js.map": "/static/js/main.f70d54d0.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.27a7f99e.js",
-    "runtime-main.js.map": "/static/js/runtime-main.27a7f99e.js.map",
-    "static/js/2.507c7627.chunk.js": "/static/js/2.507c7627.chunk.js",
-    "static/js/2.507c7627.chunk.js.map": "/static/js/2.507c7627.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.fe68c1deb98143f926f728dd91bf3cb4.js": "/precache-manifest.fe68c1deb98143f926f728dd91bf3cb4.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.9a196862.chunk.css.map": "/static/css/main.9a196862.chunk.css.map"
+    "main.css": "/The-Jungle-FastRider/static/css/main.9a196862.chunk.css",
+    "main.js": "/The-Jungle-FastRider/static/js/main.ee6aa2e0.chunk.js",
+    "main.js.map": "/The-Jungle-FastRider/static/js/main.ee6aa2e0.chunk.js.map",
+    "runtime-main.js": "/The-Jungle-FastRider/static/js/runtime-main.effff92b.js",
+    "runtime-main.js.map": "/The-Jungle-FastRider/static/js/runtime-main.effff92b.js.map",
+    "static/js/2.507c7627.chunk.js": "/The-Jungle-FastRider/static/js/2.507c7627.chunk.js",
+    "static/js/2.507c7627.chunk.js.map": "/The-Jungle-FastRider/static/js/2.507c7627.chunk.js.map",
+    "index.html": "/The-Jungle-FastRider/index.html",
+    "precache-manifest.e914ed8c6bafa0b4ff33f75d96035e51.js": "/The-Jungle-FastRider/precache-manifest.e914ed8c6bafa0b4ff33f75d96035e51.js",
+    "service-worker.js": "/The-Jungle-FastRider/service-worker.js",
+    "static/css/main.9a196862.chunk.css.map": "/The-Jungle-FastRider/static/css/main.9a196862.chunk.css.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.27a7f99e.js",
+    "static/js/runtime-main.effff92b.js",
     "static/js/2.507c7627.chunk.js",
     "static/css/main.9a196862.chunk.css",
-    "static/js/main.f70d54d0.chunk.js"
+    "static/js/main.ee6aa2e0.chunk.js"
   ]
 }
