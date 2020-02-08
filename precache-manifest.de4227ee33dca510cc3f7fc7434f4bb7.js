@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "606b9e2799a7e180427349b87e5ab7d2",
+    "revision": "f531fbcee1be29ce1a746182e23feb3c",
     "url": "/The-Jungle-FastRider/index.html"
   },
   {
-    "revision": "612455f01526b29c8f65",
+    "revision": "e10b2aafa26dfe7e842e",
     "url": "/The-Jungle-FastRider/static/css/main.9a196862.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/The-Jungle-FastRider/static/js/2.507c7627.chunk.js"
   },
   {
-    "revision": "612455f01526b29c8f65",
-    "url": "/The-Jungle-FastRider/static/js/main.ee6aa2e0.chunk.js"
+    "revision": "e10b2aafa26dfe7e842e",
+    "url": "/The-Jungle-FastRider/static/js/main.00436925.chunk.js"
   },
   {
     "revision": "b72b98772c0b6e0d4cac",

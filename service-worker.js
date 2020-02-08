@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/The-Jungle-FastRider/precache-manifest.e914ed8c6bafa0b4ff33f75d96035e51.js"
+  "/The-Jungle-FastRider/precache-manifest.de4227ee33dca510cc3f7fc7434f4bb7.js"
 );
 
 self.addEventListener('message', (event) => {
