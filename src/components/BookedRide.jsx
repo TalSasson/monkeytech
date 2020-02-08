@@ -5,6 +5,7 @@ import { compose } from 'redux'
 import tick from '../assets/tick.png'
 import { THEME } from '../consts'
 import IconMessage from './IconMessage'
+import formatDate from '../lib/formatDate'
 
 const styles = {
   container: {
@@ -93,7 +94,7 @@ function BookedRide(props) {
           <div className={classes.returnTimeWrapper}>
             <div className={classes.returnAt}>Return At</div>
             <div className={classes.emphasisText}>
-              {`${new Date(return_time).getHours()}:${new Date(return_time).getMinutes()}`}
+              {formatDate(return_time)}
             </div>
           </div>
           <div className={classes.accesCodeWrapper}>

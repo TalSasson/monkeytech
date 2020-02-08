@@ -3,6 +3,7 @@ import withStyles from 'react-jss'
 import ticket from '../../assets/ticket.png'
 import clock from '../../assets/clock.png'
 import { THEME } from '../../consts'
+import formatDate from '../../lib/formatDate'
 
 const styles = {
   rideDetails: {
@@ -81,7 +82,8 @@ function RideCard(props) {
   const {
     classes, card, onClick, isSelected,
   } = props
-
+  const { zone: { name: zoneName }, name, return_time, remaining_tickets } = card
+  console.log(card)
   return (
     <div
       role="button"
@@ -91,16 +93,16 @@ function RideCard(props) {
     >
       <div className={classes.lineColor} />
       <div className={classes.content}>
-        <div className={classes.zone}>{card.zone.name}</div>
-        <div className={classes.rideName}>{card.name}</div>
+        <div className={classes.zone}>{zoneName}</div>
+        <div className={classes.rideName}>{name}</div>
         <div className={classes.bottomDetailsLine}>
           <div className={classes.returnTimeWrapper}>
             <img src={clock} alt="return time" className={classes.img} />
-            <div>{`${new Date(card.return_time).getHours()}:${new Date(card.return_time).getMinutes()}`}</div>
+            <div>{formatDate(return_time)}</div>
           </div>
           <div className={classes.leftTickectsWrapper}>
             <img src={ticket} alt="remaining tickects" className={classes.img} />
-            <div>{card.remaining_tickets}</div>
+            <div>{remaining_tickets}</div>
           </div>
         </div>
       </div>

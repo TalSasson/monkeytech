@@ -72,9 +72,20 @@ const styles = {
   },
   errorMsg: {
     textAlign: 'center',
-    marginTop: 20,
+    margin: '20px 0',
     fontWeight: 'bold',
     fontSize: 18,
+  },
+  tryAgainBtn: {
+    padding: '10px 30px',
+    background: '#4c4c4b',
+    border: 'none',
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
+    textTransform: 'uppercase',
+    cursor: 'pointer',
+    userSelect: 'none',
   },
 }
 
@@ -83,22 +94,29 @@ function App(props) {
     classes, dispatch, access_code, pinCode,
   } = props
   const [rides, setRides] = useState([])
-  const [errorMsg, setErrorMsg] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
   const buttonRef = useRef(null)
   const appContainerRef = useRef(null)
 
   useEffect(() => {
-    if (window.innerWidth > 600 || !buttonRef.current) return
-    appContainerRef.current.addEventListener('scroll', () => {
-      const { scrollTop } = appContainerRef.current
+    if (window.innerWidth > 600) return
+    if (errorMsg || access_code) {
+      appContainerRef.current.removeEventListener('scroll', updateButtonVisibilityByScroll)
+      return
+    }
+    appContainerRef.current.addEventListener('scroll', updateButtonVisibilityByScroll)
+  },[errorMsg, access_code])
+
+  function updateButtonVisibilityByScroll() {
+    if (!buttonRef.current) return
+    const { scrollTop } = appContainerRef.current
       let resultBottom = 0
       if (scrollTop < 0) return
       if (scrollTop <= BUTTON_HEIGHT) {
           resultBottom = scrollTop - BUTTON_HEIGHT
       }
       buttonRef.current.style.bottom = `${resultBottom}px`
-  })
-  },[])
+  }
 
   function getRidesDetails() {
     (async () => {
@@ -148,6 +166,14 @@ function App(props) {
             </svg>
             </div>
           <span className={classes.errorMsg}>{errorMsg}</span>
+          <div
+            onClick={() => setErrorMsg('')}
+            className={classes.tryAgainBtn}
+            tabIndex={0}
+            role="button"
+          >
+            Try again
+          </div>
         </div>
       )
     }
