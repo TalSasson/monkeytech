@@ -1,9 +1,9 @@
 
 ## The Jungle FastRider app
 <div style="display: flex; justify-content: space-around">
-  <img src="https://i.ibb.co/rxgZ3qx/fast-Rider-Desktop.png" width="30%"/>
-  <img src="https://i.ibb.co/RCcHNnk/fast-Rider-Mobile.png" width="20%"/>
-  <img src="https://i.ibb.co/VgcvX9B/fast-Rider-Mobile2.png" width="20%"/>
+  <img src="https://i.ibb.co/rxgZ3qx/fast-Rider-Desktop.png" width="40%"/>
+  <img src="https://i.ibb.co/RCcHNnk/fast-Rider-Mobile.png" width="10%"/>
+  <img src="https://i.ibb.co/VgcvX9B/fast-Rider-Mobile2.png" width="10%"/>
 </div>
 
 # Demo
