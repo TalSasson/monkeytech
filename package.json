@@ -8,7 +8,7 @@
     "node": "10.16.0"
   },
   "dependencies": {
-    "gh-pages": "^2.2.0",
+    "gh-pages": "^5.0.0",
     "ky": "^0.17.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
